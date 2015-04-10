@@ -54,11 +54,11 @@
               'src/mono/utils.cpp',
             ]
           , 'include_dirs': [
-              '<!@(pkg-config mono-2 --cflags-only-I | sed s/-I//g)'
+              '<!@(pkg-config monosgen-2 --cflags-only-I | sed s/-I//g)'
             ]
           , 'link_settings': {
               'libraries': [
-                '<!@(pkg-config mono-2 --libs)'
+                '<!@(pkg-config monosgen-2 --libs)'
               ],
             }
           }
