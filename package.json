@@ -29,7 +29,7 @@
   ],
   "dependencies": {
     "edge-cs": "0.2.7",
-    "nan": "^1.6.2"
+    "nan": "git+https://github.com/iojs/nan.git#f2b8864938601f49a1d58f964fe25c183d60edd7"
   },
   "devDependencies": {
     "mocha": "1.8.1",
