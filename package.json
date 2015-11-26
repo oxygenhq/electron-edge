@@ -5,13 +5,14 @@
     "url": "http://tomasz.janczuk.org",
     "twitter": "tjanczuk"
   },
-  "version": "0.10.2-pre",
+  "version": "5.0.0-pre",
   "description": "Edge.js: run .NET and Node.js in-process in Electron",
   "tags": [
     "owin",
     "edge",
     "net",
     "clr",
+    "coreclr",
     "c#",
     "mono",
     "managed",
@@ -28,8 +29,8 @@
     }
   ],
   "dependencies": {
-    "edge-cs": "0.2.7",
-    "nan": "git+https://github.com/iojs/nan.git#f2b8864938601f49a1d58f964fe25c183d60edd7"
+    "edge-cs": "0.3.0",
+    "nan": "^2.0.9"
   },
   "devDependencies": {
     "mocha": "1.8.1",

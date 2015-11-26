@@ -1,5 +1,5 @@
-#ifndef __EDGE_H
-#define __EDGE_H
+#ifndef __MONO_EDGE_H
+#define __MONO_EDGE_H
 
 #include "../common/edge_common.h"
 
@@ -10,12 +10,9 @@
 
 typedef int GCHandle;
 
-using namespace v8;
-
-Handle<v8::String> stringCLR2V8(MonoString* text);
-MonoString* stringV82CLR(Handle<v8::String> text);
-MonoString* exceptionV82stringCLR(Handle<v8::Value> exception);
-Handle<Value> throwV8Exception(Handle<Value> exception);
+v8::Local<v8::String> stringCLR2V8(MonoString* text);
+MonoString* stringV82CLR(v8::Handle<v8::String> text);
+MonoString* exceptionV82stringCLR(v8::Handle<v8::Value> exception);
 
 class MonoEmbedding
 {
@@ -51,17 +48,6 @@ typedef struct clrActionContext {
 class Task
 {
 public: 
-    enum TaskStatus
-    {
-        Created = 0,
-        WaitingForActivation = 1,
-        WaitingToRun = 2,
-        Running = 3,
-        WaitingForChildrenToComplete = 4,
-        RanToCompletion = 5,
-        Canceled = 6,
-        Faulted = 7
-    };
     static TaskStatus Status(MonoObject* _this);
     static MonoException* Exception(MonoObject* _this);
     static MonoObject* Result(MonoObject* _this);
@@ -78,7 +64,7 @@ public:
 class ClrFuncInvokeContext {
 private:
     GCHandle _this;
-    Persistent<Function>* callback;
+    Nan::Persistent<v8::Function>* callback;
     uv_edge_async_t* uv_edge_async;
 
 public:
@@ -91,22 +77,22 @@ public:
 
     MonoObject* GetMonoObject();
 
-    ClrFuncInvokeContext(Handle<v8::Value> callbackOrSync);
+    ClrFuncInvokeContext(v8::Local<v8::Value> callbackOrSync);
     ~ClrFuncInvokeContext();
 
     void InitializeAsyncOperation();
 
     static void __cdecl CompleteOnCLRThread(ClrFuncInvokeContext *_this, MonoObject* task);
     static void __cdecl CompleteOnV8ThreadAsynchronous(ClrFuncInvokeContext *_this);
-    Handle<v8::Value> CompleteOnV8Thread(bool completedSynchronously);
+    v8::Local<v8::Value> CompleteOnV8Thread(bool completedSynchronously);
 };
 
 class NodejsFunc {
     GCHandle _this;
 public:
-    Persistent<Function>* Func;
+    Nan::Persistent<v8::Function>* Func;
 
-    NodejsFunc(Handle<Function> function);
+    NodejsFunc(v8::Local<v8::Function> function);
     ~NodejsFunc();
 
     MonoObject* GetFunc(); // returns Func<object,Task<object>>
@@ -132,15 +118,15 @@ private:
 
     ClrFunc();
 
-    static Handle<v8::Object> MarshalCLRObjectToV8(MonoObject* netdata, MonoException** exc);
+    static v8::Local<v8::Object> MarshalCLRObjectToV8(MonoObject* netdata, MonoException** exc);
 
 public:
     static NAN_METHOD(Initialize);
-    static Handle<v8::Function> Initialize(MonoObject* func);
-    Handle<v8::Value> Call(Handle<v8::Value> payload, Handle<v8::Value> callback);
-    static Handle<v8::Value> MarshalCLRToV8(MonoObject* netdata, MonoException** exc);
-    static Handle<v8::Object> MarshalCLRExceptionToV8(MonoException* exception);
-    static MonoObject* MarshalV8ToCLR(Handle<v8::Value> jsdata);    
+    static v8::Local<v8::Function> Initialize(MonoObject* func);
+    v8::Local<v8::Value> Call(v8::Local<v8::Value> payload, v8::Local<v8::Value> callback);
+    static v8::Local<v8::Value> MarshalCLRToV8(MonoObject* netdata, MonoException** exc);
+    static v8::Local<v8::Value> MarshalCLRExceptionToV8(MonoException* exception);
+    static MonoObject* MarshalV8ToCLR(v8::Local<v8::Value> jsdata);    
 };
 
 typedef struct clrFuncWrap {
