@@ -182,7 +182,7 @@
                         'build/$(BUILDTYPE)/monoembedding.exe'
                       ],
                       'action': [
-                        'dmcs',
+                        'mcs',
                         '-sdk:4.5',
                         '-target:exe',
                         '-out:build/$(BUILDTYPE)/MonoEmbedding.exe',
