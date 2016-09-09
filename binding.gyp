@@ -71,7 +71,7 @@
                   ],
                   'link_settings': {
                     'libraries': [
-                      '<!@(pkg-config mono-2 --libs)'
+                      '<!@(pkg-config monosgen-2 --libs)'
                     ],
                   }
                 }
