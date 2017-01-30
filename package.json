@@ -1,5 +1,5 @@
 {
-  "name": "edge",
+  "name": "electron-edge",
   "author": {
     "name": "Tomasz Janczuk <tomasz@janczuk.org>",
     "url": "http://tomasz.janczuk.org",
@@ -43,10 +43,5 @@
   },
   "bugs": {
     "url": "http://github.com/tjanczuk/edge/issues"
-  },
-  "scripts": {
-    "install": "node tools/install.js",
-    "test": "node tools/test.js",
-    "jshint": "node ./tools/runJsHint.js"
   }
 }
