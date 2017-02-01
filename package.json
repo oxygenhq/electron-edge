@@ -36,6 +36,9 @@
     "mocha": "2.5.3",
     "jshint": "1.1.0"
   },
+  "scripts": {
+    "preinstall": "echo Skipping native module rebuild"
+  },
   "homepage": "https://github.com/tjanczuk/edge",
   "repository": {
     "type": "git",
